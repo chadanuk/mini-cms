@@ -16,7 +16,7 @@ class StringBlockTest extends TestCase
      */
     public function can_create_a_string_block()
     {
-        $markdownBlock = StringBlock::create([
+        StringBlock::create([
             'content' => 'A title',
         ]);
 
@@ -30,5 +30,19 @@ class StringBlockTest extends TestCase
             'block_id' => $block->id,
             'content' => 'A title',
         ]);
+    }
+
+    /**
+     * @test
+     */
+    public function can_grender_string_block()
+    {
+        $stringBlock = StringBlock::create([
+            'content' => "a string"
+        ]);
+
+        $output = $stringBlock->render();
+
+        $this->assertContains('a string', $output);
     }
 }

@@ -43,12 +43,14 @@ class MiniCmsServiceProvider extends ServiceProvider
             // Publishing the views.
             $this->publishes([
                 __DIR__ . '/../resources/views' => resource_path('views/vendor/mini-cms'),
-            ], 'views');
+            ], 'mini-cms');
+
 
             // Publishing assets.
             /*$this->publishes([
                 __DIR__.'/../resources/assets' => public_path('vendor/mini-cms'),
             ], 'assets');*/
+
 
             // Publishing the translation files.
             /*$this->publishes([
@@ -57,6 +59,7 @@ class MiniCmsServiceProvider extends ServiceProvider
 
             // Registering package commands.
             // $this->commands([]);
+            $this->loadViewsFrom(__DIR__ . '/../resources/views', 'mini-cms');
         }
     }
 

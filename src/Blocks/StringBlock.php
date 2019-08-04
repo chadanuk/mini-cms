@@ -12,4 +12,9 @@ class StringBlock extends BlockTypeAbstract implements BlockTypeContract
 
     protected static $blockType = 'string';
     protected $table = 'block_contents';
+
+    public function render()
+    {
+        return $this->content;
+    }
 }

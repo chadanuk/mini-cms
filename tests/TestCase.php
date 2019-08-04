@@ -6,8 +6,9 @@ use DirectoryIterator;
 use Illuminate\Support\Str;
 use Chadanuk\MiniCms\MiniCmsFacade;
 use Chadanuk\MiniCms\MiniCmsServiceProvider;
-use Orchestra\Testbench\TestCase as BaseTestCase;
 use Chadanuk\MiniCms\MiniCmsRouteServiceProvider;
+use Orchestra\Testbench\TestCase as BaseTestCase;
+use Chadanuk\MiniCms\MiniCmsAdminRouteServiceProvider;
 
 class TestCase extends BaseTestCase
 {
@@ -44,7 +45,11 @@ class TestCase extends BaseTestCase
 
     protected function getPackageProviders($app)
     {
-        return [MiniCmsServiceProvider::class, MiniCmsRouteServiceProvider::class];
+        return [
+            MiniCmsServiceProvider::class,
+            MiniCmsAdminRouteServiceProvider::class,
+            MiniCmsRouteServiceProvider::class
+        ];
     }
 
     protected function getPackageAliases($app)

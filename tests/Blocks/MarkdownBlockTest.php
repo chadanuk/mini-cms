@@ -16,10 +16,7 @@ class MarkdownBlockTest extends TestCase
     public function a_markdown_block_can_be_created()
     {
         $markdownBlock = MarkdownBlock::create([
-            'content' => <<<EOD
-            # Title
-            Some content goes here.
-EOD
+            'content' => "# Title\nSome content goes here."
         ]);
 
         $this->assertDatabaseHas('blocks', [
@@ -30,10 +27,22 @@ EOD
 
         $this->assertDatabaseHas('block_contents', [
             'block_id' => $block->id,
-            'content' => <<<EOD
-            # Title
-            Some content goes here.
-EOD
+            'content' => "# Title\nSome content goes here."
         ]);
+    }
+
+    /**
+     * @test
+     */
+    public function rendering_a_markdown_block_formats_it_as_html()
+    {
+        $markdownBlock = MarkdownBlock::create([
+            'content' => "# Title\nSome content goes here."
+        ]);
+
+        $output = $markdownBlock->render()->__toString();
+
+        $this->assertContains('<h1>Title</h1>', $output);
+        $this->assertContains('<p>Some content goes here.</p>', $output);
     }
 }

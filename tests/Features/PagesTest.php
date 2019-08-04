@@ -2,10 +2,62 @@
 
 namespace Chadanuk\MiniCms\Tests\Features;
 
+use Chadanuk\MiniCms\Page;
 use Chadanuk\MiniCms\Tests\TestCase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class PagesTest extends TestCase
 {
+    use WithoutMiddleware;
+
+    /**
+     * @test
+     */
+    public function can_view_create_page_form()
+    {
+        $this->response = $this->withoutExceptionHandling()->get(config('mini-cms.admin-path') . '/mini-cms/pages/create');
+
+        $this->response->assertStatus(200);
+        $this->response->assertSee('Create a page');
+        $this->response->assertSee('Page name');
+        $this->response->assertSee('name="name"');
+        $this->response->assertSee('Create!');
+        $this->response->assertSee('type="submit"');
+    }
+
+    /**
+     * @test
+     */
+    public function can_store_a_new_page()
+    {
+        $this->response = $this->withoutExceptionHandling()->post(config('mini-cms.admin-path') . '/mini-cms/pages/store', [
+            'name' => 'Page',
+        ]);
+
+        $this->response->assertStatus(201);
+        $this->assertEquals(1, Page::count());
+        $this->assertEquals('Page', Page::first()->name);
+    }
+
+    /**
+     * @test
+     */
+    public function can_see_list_of_pages()
+    {
+        $page = \MiniCms::createPage([
+            'name' => 'Page name',
+        ]);
+        $this->response = $this->withoutExceptionHandling()->get(config('mini-cms.admin-path') . '/mini-cms/pages');
+
+        $this->response->assertStatus(200);
+
+        $this->response->assertSee('Pages');
+        $this->response->assertSee('Create page');
+        $this->response->assertSee('Name');
+        $this->response->assertSee('Page name');
+        $this->response->assertSee('Delete page');
+        $this->response->assertSee('Edit page');
+    }
 
     /**
      * @test
@@ -81,10 +133,9 @@ class PagesTest extends TestCase
             'slug' => 'the-page-slug',
         ]);
 
-        $this->response = $this->get($page->slug);
+        $this->response = $this->withoutExceptionHandling()->get($page->slug);
 
-        dd($this->response);
-        $this->response->assertStatus(200);
+        $this->response->assertStatus(200, $this->response->__toString());
         $this->response->assertViewHas('page', $page);
         $this->response->assertSee('A title');
     }

@@ -46,4 +46,7 @@ class Page extends Model
     {
         return $this->belongsToMany(Block::class, 'pages_blocks');
     }
+
+    public function createBlock(String $type, array $blockContents): Block
+    { }
 }
