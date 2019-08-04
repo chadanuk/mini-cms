@@ -1,4 +1,17 @@
-# Very short description of the package
+# A micro laravel CMS
+
+Markdown and string blocks only.
+
+Add the following to your services providers in `config/app.php`
+```
+Chadanuk\MiniCms\MiniCmsServiceProvider::class,
+Chadanuk\MiniCms\MiniCmsRouteServiceProvider::class,
+```
+
+Add the following to your aliases in `config/app.php`
+```
+'MiniCms' => Chadanuk\MiniCms\MiniCmsFacade::class,
+```
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/chadanuk/mini-cms.svg?style=flat-square)](https://packagist.org/packages/chadanuk/mini-cms)
 [![Build Status](https://img.shields.io/travis/chadanuk/mini-cms/master.svg?style=flat-square)](https://travis-ci.org/chadanuk/mini-cms)
