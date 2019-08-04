@@ -2,7 +2,10 @@
 
 namespace Chadanuk\MiniCms;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Chadanuk\MiniCms\Events\PageCreating;
+use Chadanuk\MiniCms\Listeners\CheckPageSlug;
 
 class MiniCmsServiceProvider extends ServiceProvider
 {
@@ -38,9 +41,9 @@ class MiniCmsServiceProvider extends ServiceProvider
             ], 'config');
 
             // Publishing the views.
-            /*$this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/mini-cms'),
-            ], 'views');*/
+            $this->publishes([
+                __DIR__ . '/../resources/views' => resource_path('views/vendor/mini-cms'),
+            ], 'views');
 
             // Publishing assets.
             /*$this->publishes([
@@ -69,5 +72,7 @@ class MiniCmsServiceProvider extends ServiceProvider
         $this->app->singleton('mini-cms', function () {
             return new MiniCms;
         });
+
+        Event::listen(PageCreating::class, CheckPageSlug::class);
     }
 }

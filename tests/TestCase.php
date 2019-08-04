@@ -2,12 +2,22 @@
 
 namespace Chadanuk\MiniCms\Tests;
 
+use DirectoryIterator;
+use Illuminate\Support\Str;
+use Chadanuk\MiniCms\MiniCmsFacade;
 use Chadanuk\MiniCms\MiniCmsServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Chadanuk\MiniCms\MiniCmsFacade;
+use Chadanuk\MiniCms\MiniCmsRouteServiceProvider;
 
 class TestCase extends BaseTestCase
 {
+    /**
+     * Response obhect
+     *
+     * @var \Illuminate\Foundation\Testing\TestResponse
+     */
+    public $response;
+
 
     public function setUp(): void
     {
@@ -20,19 +30,21 @@ class TestCase extends BaseTestCase
     {
         $this->artisan('migrate')->run();
 
-        require_once __DIR__ . '/../database/migrations/create_blocks_table.php';
-        (new \CreateBlocksTable())->up();
+        $iterator = new DirectoryIterator(__DIR__ . '/../database/migrations');
+        foreach ($iterator as $file) {
+            if ($file->isFile()) {
+                $filename = $file->getFilename();
+                $className = '\\' . str_replace('.php', '', ucfirst(Str::camel($filename)));
 
-        require_once __DIR__ . '/../database/migrations/create_block_contents_table.php';
-        (new \CreateBlockContentsTable())->up();
-
-        require_once __DIR__ . '/../database/migrations/create_pages_table.php';
-        (new \CreatePagesTable())->up();
+                require_once $file->getRealPath();
+                (new $className())->up();
+            }
+        }
     }
 
     protected function getPackageProviders($app)
     {
-        return [MiniCmsServiceProvider::class];
+        return [MiniCmsServiceProvider::class, MiniCmsRouteServiceProvider::class];
     }
 
     protected function getPackageAliases($app)
