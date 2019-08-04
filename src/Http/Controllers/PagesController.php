@@ -8,6 +8,19 @@ use Illuminate\Support\Facades\View;
 
 class PagesController
 {
+    public function show(Page $page)
+    {
+        if (View::exists('mini-cms.templates.' . $page->slug)) {
+            return View('mini-cms.templates.' . $page->slug, ['page' => $page]);
+        }
+
+        if (View::exists('mini-cms.templates.default')) {
+            return View('mini-cms.templates.default', ['page' => $page]);
+        }
+
+        return View::make('mini-cms::templates.default', ['page' => $page]);
+    }
+
     public function index()
     {
         $pages = Page::all();
@@ -25,15 +38,6 @@ class PagesController
         }
 
         return View::make('mini-cms::admin.pages.create');
-    }
-
-    public function show(Page $page)
-    {
-        if (View::exists('mini-cms.templates.' . $page->slug)) {
-            return View('mini-cms.templates.' . $page->slug, ['page' => $page]);
-        }
-
-        return View::make('mini-cms::templates.default', ['page' => $page]);
     }
 
     public function store(Request $request)
