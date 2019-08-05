@@ -24,21 +24,15 @@ class MiniCmsServiceProvider extends ServiceProvider
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'mini-cms');
 
         $this->publishes([
-            __DIR__ . '/../database/migrations/create_blocks_table.php',
-            $this->getMigrationFilename($filesystem, 'create_blocks_table.php')
-        ]);
-        $this->publishes([
-            __DIR__ . '/../database/migrations/create_block_contents_table.php',
-            $this->getMigrationFilename($filesystem, 'create_block_contents_table.php')
-        ]);
-        $this->publishes([
-            __DIR__ . '/../database/migrations/create_pages_table.php',
-            $this->getMigrationFilename($filesystem, 'create_pages_table.php')
-        ]);
-        $this->publishes([
-            __DIR__ . '/../database/migrations/create_pages_blocks_table.php',
-            $this->getMigrationFilename($filesystem, 'create_pages_blocks_table.php')
-        ]);
+            __DIR__ . '/../database/migrations/create_blocks_table.php' =>
+            $this->getMigrationFilename($filesystem, 'create_blocks_table.php'),
+            __DIR__ . '/../database/migrations/create_block_contents_table.php' =>
+            $this->getMigrationFilename($filesystem, 'create_block_contents_table.php'),
+            __DIR__ . '/../database/migrations/create_pages_table.php' =>
+            $this->getMigrationFilename($filesystem, 'create_pages_table.php'),
+            __DIR__ . '/../database/migrations/create_pages_blocks_table.php' =>
+            $this->getMigrationFilename($filesystem, 'create_pages_blocks_table.php'),
+        ], 'migrations');
 
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
