@@ -20,6 +20,6 @@ trait CreatesBlockFromContent
             'content' => $content,
         ]);
 
-        return new $blockClass($content->block_id, $content->id, $label, $page_id, $content);
+        return new $blockClass($block->type, $content->block_id, $content->id, $label, $page_id, $content);
     }
 }

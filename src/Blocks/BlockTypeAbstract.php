@@ -11,12 +11,14 @@ abstract class BlockTypeAbstract
     public $blockId;
     public $blockContentId;
     public $pageId;
+    public $type;
     public $content;
     public $label;
 
-    public function __construct(int $blockId, int $blockContentId, String $label = null, int $pageId = null, $content = null)
+    public function __construct(string $type, int $blockId, int $blockContentId, String $label = null, int $pageId = null, $content = null)
     {
         $this->blockId = $blockId;
+        $this->type = $type;
         $this->blockContentId = $blockContentId;
         $this->pageId = $pageId;
         $this->content = $content;

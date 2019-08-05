@@ -9,6 +9,8 @@ use Illuminate\Routing\Router;
 
 class MiniCms
 {
+    public $pageBlocks = null;
+
     public function createPage(array $pageData = []): Page
     {
         return Page::create($pageData);
@@ -44,5 +46,17 @@ class MiniCms
         $route = $routes->first();
 
         return $route->bind($request)->run();
+    }
+
+    public function renderBlock(String $type, String $label)
+    {
+        $request = request();
+        $page = $request->route('page');
+
+        if (!$this->pageBlocks) {
+            $this->pageBlocks = $page->pageBlocks();
+        }
+
+        echo $this->pageBlocks->where('label', $label)->where('type', $type)->first()->content;
     }
 }

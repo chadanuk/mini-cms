@@ -12,18 +12,12 @@ use Chadanuk\MiniCms\MiniCmsRouteServiceProvider;
 
 class MiniCmsTest extends TestCase
 {
-
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
-
     protected function getPackageProviders($app)
     {
         return [
             MiniCmsServiceProvider::class,
-            // MiniCmsAdminRouteServiceProvider::class,
             MiniCmsRouteServiceProvider::class
+            // MiniCmsAdminRouteServiceProvider::class,
         ];
     }
 
@@ -41,5 +35,22 @@ class MiniCmsTest extends TestCase
 
         $this->assertContains('Create a page', $this->response->__toString());
         $this->assertContains('Custom Admin Panel', $this->response->__toString());
+    }
+
+    /**
+     * @test
+     */
+    public function can_render_block_using_render_block()
+    {
+        View::addLocation(__DIR__ . '/../stubs/views');
+        $page = \MiniCms::createPage(['name' => 'page1']);
+        $page->fetchBlocks();
+
+        $blockContent = $page->fresh()->blockContents->first();
+        $blockContent->update(['content' => 'Page title']);
+
+        $this->response = $this->withoutExceptionHandling()->get('page1');
+
+        $this->assertContains('Page title', $this->response->__toString());
     }
 }
