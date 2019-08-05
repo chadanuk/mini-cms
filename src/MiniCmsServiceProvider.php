@@ -23,19 +23,19 @@ class MiniCmsServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../database/migrations/create_blocks_table.php',
                 database_path('migrations/' . date('Y-m-d_His') . 'create_blocks_table.php')
-            ]);
+            ], 'migrations');
             $this->publishes([
                 __DIR__ . '/../database/migrations/create_block_contents_table.php',
                 database_path('migrations/' . date('Y-m-d_His') . 'create_block_contents_table.php')
-            ]);
+            ], 'migrations');
             $this->publishes([
                 __DIR__ . '/../database/migrations/create_pages_table.php',
                 database_path('migrations/' . date('Y-m-d_His') . 'create_pages_table.php')
-            ]);
+            ], 'migrations');
             $this->publishes([
                 __DIR__ . '/../database/migrations/create_pages_blocks_table.php',
                 database_path('migrations/' . date('Y-m-d_His') . 'create_pages_blocks_table.php')
-            ]);
+            ], 'migrations');
 
             // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
