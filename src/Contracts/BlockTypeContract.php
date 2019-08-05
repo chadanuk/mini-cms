@@ -6,5 +6,5 @@ use Chadanuk\MiniCms\Blocks\BlockTypeAbstract;
 
 interface BlockTypeContract
 {
-    public static function create(array $data): BlockTypeAbstract;
+    public static function create($content, String $label = null, int $page_id = null): BlockTypeAbstract;
 }

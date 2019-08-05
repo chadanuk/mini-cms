@@ -8,7 +8,7 @@ use Chadanuk\MiniCms\Blocks\BlockTypeAbstract;
 
 trait CreatesBlockFromContent
 {
-    public static function create(array $data): BlockTypeAbstract
+    public static function create($content, String $label = null, int $page_id = null): BlockTypeAbstract
     {
         $blockClass = \get_class();
 
@@ -16,9 +16,10 @@ trait CreatesBlockFromContent
 
         $content = BlockContent::create([
             'block_id' => $block->id,
-            'content' => $data['content'],
+            'page_id' => $page_id,
+            'content' => $content,
         ]);
 
-        return new $blockClass($content->block_id, $content->content);
+        return new $blockClass($content->block_id, $content->id, $label, $page_id, $content);
     }
 }

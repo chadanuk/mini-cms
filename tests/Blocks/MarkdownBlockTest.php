@@ -15,9 +15,9 @@ class MarkdownBlockTest extends TestCase
     /** @test */
     public function a_markdown_block_can_be_created()
     {
-        $markdownBlock = MarkdownBlock::create([
-            'content' => "# Title\nSome content goes here."
-        ]);
+        $markdownBlock = MarkdownBlock::create(
+            "# Title\nSome content goes here."
+        );
 
         $this->assertDatabaseHas('blocks', [
             'type' => 'markdown',

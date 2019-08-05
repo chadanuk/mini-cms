@@ -11,6 +11,7 @@ class CreatePagesBlocksTable extends Migration
         Schema::create('pages_blocks', function (Blueprint $table) {
             $table->bigInteger('page_id');
             $table->bigInteger('block_id');
+            $table->string('label');
             $table->timestamps();
         });
     }

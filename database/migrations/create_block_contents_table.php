@@ -11,6 +11,7 @@ class CreateBlockContentsTable extends Migration
         Schema::create('block_contents', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('block_id');
+            $table->bigInteger('page_id')->nullable();
             $table->text('content')->nullable();
             $table->timestamps();
         });

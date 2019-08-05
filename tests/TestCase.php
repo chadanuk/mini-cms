@@ -47,8 +47,8 @@ class TestCase extends BaseTestCase
     {
         return [
             MiniCmsServiceProvider::class,
+            MiniCmsRouteServiceProvider::class,
             MiniCmsAdminRouteServiceProvider::class,
-            MiniCmsRouteServiceProvider::class
         ];
     }
 

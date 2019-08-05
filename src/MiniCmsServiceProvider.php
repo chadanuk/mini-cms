@@ -19,23 +19,27 @@ class MiniCmsServiceProvider extends ServiceProvider
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'mini-cms');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'mini-cms');
-
-        $this->publishes([
-            __DIR__ . '/../database/migrations/create_blocks_table.php',
-            database_path('migrations/' . date('Y-m-d_His') . 'create_blocks_table.php')
-        ]);
-        $this->publishes([
-            __DIR__ . '/../database/migrations/create_block_contents_table.php',
-            database_path('migrations/' . date('Y-m-d_His') . 'create_block_contents_table.php')
-        ]);
-        $this->publishes([
-            __DIR__ . '/../database/migrations/create_pages_table.php',
-            database_path('migrations/' . date('Y-m-d_His') . 'create_pages_table.php')
-        ]);
-
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
-
         if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../database/migrations/create_blocks_table.php',
+                database_path('migrations/' . date('Y-m-d_His') . 'create_blocks_table.php')
+            ]);
+            $this->publishes([
+                __DIR__ . '/../database/migrations/create_block_contents_table.php',
+                database_path('migrations/' . date('Y-m-d_His') . 'create_block_contents_table.php')
+            ]);
+            $this->publishes([
+                __DIR__ . '/../database/migrations/create_pages_table.php',
+                database_path('migrations/' . date('Y-m-d_His') . 'create_pages_table.php')
+            ]);
+            $this->publishes([
+                __DIR__ . '/../database/migrations/create_pages_blocks_table.php',
+                database_path('migrations/' . date('Y-m-d_His') . 'create_pages_blocks_table.php')
+            ]);
+
+            // $this->loadRoutesFrom(__DIR__.'/routes.php');
+
+
             $this->publishes([
                 __DIR__ . '/../config/config.php' => config_path('mini-cms.php'),
             ], 'config');
@@ -59,8 +63,8 @@ class MiniCmsServiceProvider extends ServiceProvider
 
             // Registering package commands.
             // $this->commands([]);
-            $this->loadViewsFrom(__DIR__ . '/../resources/views', 'mini-cms');
         }
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'mini-cms');
     }
 
     /**

@@ -10,15 +10,9 @@ class PagesController
 {
     public function show(Page $page)
     {
-        if (View::exists('mini-cms.templates.' . $page->slug)) {
-            return View('mini-cms.templates.' . $page->slug, ['page' => $page]);
-        }
+        $viewPath = $page->getViewPath();
 
-        if (View::exists('mini-cms.templates.default')) {
-            return View('mini-cms.templates.default', ['page' => $page]);
-        }
-
-        return View::make('mini-cms::templates.default', ['page' => $page]);
+        return View::make($viewPath, ['page' => $page]);
     }
 
     public function index()
@@ -29,6 +23,33 @@ class PagesController
         }
 
         return View::make('mini-cms::admin.pages.list', ['pages' => $pages]);
+    }
+
+    public function edit(Request $request, $id)
+    {
+        $page = Page::find($id);
+
+        $page->fetchBlocks();
+
+        if (View::exists('mini-cms.admin.pages.edit')) {
+            return View('mini-cms.admin.pages.edit', ['page' => $page]);
+        }
+
+        return View::make('mini-cms::admin.pages.edit', ['page' => $page]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $page = Page::find($id);
+
+        $page->update([
+            'name' => $request->get('name', $page->name),
+            'slug' => $request->get('slug', $page->slug),
+        ]);
+
+        $page->updateBlocks($request->get('blocks'));
+
+        return redirect()->route('pages.edit', ['id' => $id])->with('success', true);
     }
 
     public function create()
