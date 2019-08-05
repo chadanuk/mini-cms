@@ -13,6 +13,13 @@ Add the following to your aliases in `config/app.php`
 'MiniCms' => Chadanuk\MiniCms\MiniCmsFacade::class,
 ```
 
+To use the blocks on a template (named after the page slug)
+```
+<h1>@minicms('string', 'Title')</h1>
+
+@minicms('markdown', 'Content')
+```
+
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/chadanuk/mini-cms.svg?style=flat-square)](https://packagist.org/packages/chadanuk/mini-cms)
 [![Build Status](https://img.shields.io/travis/chadanuk/mini-cms/master.svg?style=flat-square)](https://travis-ci.org/chadanuk/mini-cms)
 [![Quality Score](https://img.shields.io/scrutinizer/g/chadanuk/mini-cms.svg?style=flat-square)](https://scrutinizer-ci.com/g/chadanuk/mini-cms)
