@@ -49,7 +49,7 @@ class PagesController
 
         $page->updateBlocks($request->get('blocks'));
 
-        return redirect()->route('pages.edit', ['id' => $id])->with('success', true);
+        return redirect()->route('mini-cms.pages.edit', ['id' => $id])->with('success', true);
     }
 
     public function create()

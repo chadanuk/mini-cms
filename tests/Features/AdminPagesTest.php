@@ -19,7 +19,7 @@ class AdminPagesTest extends TestCase
         $this->response = $this->withoutExceptionHandling()->get(config('mini-cms.admin-path') . '/mini-cms/pages/create');
 
         $this->response->assertStatus(200);
-        $this->response->assertSee('action="' . route('minicms.pages.store') . '"');
+        $this->response->assertSee('action="' . route('mini-cms.pages.store') . '"');
         $this->response->assertSee('method="post"');
         $this->response->assertSee('Create a page');
         $this->response->assertSee('Page name');
@@ -83,7 +83,7 @@ class AdminPagesTest extends TestCase
 
         $this->response->assertStatus(200);
         $this->response->assertSee('Edit page');
-        $this->response->assertSee('action="' . route('minicms.pages.update', ['id' => $page->id]) . '"');
+        $this->response->assertSee('action="' . route('mini-cms.pages.update', ['id' => $page->id]) . '"');
         $this->response->assertSee('method="post"');
         $this->response->assertSee('Update page');
         $this->response->assertSee('Page1');

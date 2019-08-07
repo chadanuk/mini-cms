@@ -16,9 +16,7 @@ class StringBlockTest extends TestCase
      */
     public function can_create_a_string_block()
     {
-        StringBlock::create([
-            'content' => 'A title',
-        ]);
+        StringBlock::create('A title');
 
         $this->assertDatabaseHas('blocks', [
             'type' => 'string',
@@ -35,11 +33,9 @@ class StringBlockTest extends TestCase
     /**
      * @test
      */
-    public function can_grender_string_block()
+    public function can_render_string_block()
     {
-        $stringBlock = StringBlock::create([
-            'content' => "a string"
-        ]);
+        $stringBlock = StringBlock::create('a string');
 
         $output = $stringBlock->render();
 

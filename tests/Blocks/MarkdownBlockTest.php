@@ -36,9 +36,9 @@ class MarkdownBlockTest extends TestCase
      */
     public function rendering_a_markdown_block_formats_it_as_html()
     {
-        $markdownBlock = MarkdownBlock::create([
-            'content' => "# Title\nSome content goes here."
-        ]);
+        $markdownBlock = MarkdownBlock::create(
+            "# Title\nSome content goes here."
+        );
 
         $output = $markdownBlock->render()->__toString();
 
