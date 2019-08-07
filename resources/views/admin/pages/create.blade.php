@@ -1,4 +1,4 @@
-<form class="mini-cms__form">
+<form action="{{ route('minicms.pages.store') }}" method="post" class="mini-cms__form">
     <h1>Create a page</h1>
     <fieldset>
         <legend>Page details</legend>
