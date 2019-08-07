@@ -83,6 +83,8 @@ class AdminPagesTest extends TestCase
 
         $this->response->assertStatus(200);
         $this->response->assertSee('Edit page');
+        $this->response->assertSee('action="' . route('minicms.pages.update', ['id' => $page->id]) . '"');
+        $this->response->assertSee('method="post"');
         $this->response->assertSee('Update page');
         $this->response->assertSee('Page1');
         $this->response->assertSee('name="name"');
