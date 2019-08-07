@@ -57,6 +57,8 @@ class AdminPagesTest extends TestCase
         $this->response->assertSee('Pages');
         $this->response->assertSee('Create page');
         $this->response->assertSee('Name');
+        $this->response->assertSee('edit/' . $page->id);
+        $this->response->assertSee('delete/' . $page->id);
         $this->response->assertSee('Page name');
         $this->response->assertSee('Delete page');
         $this->response->assertSee('Edit page');

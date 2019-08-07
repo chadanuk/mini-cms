@@ -16,9 +16,9 @@
                 <tr>
                     <td>{{ $page->name }}</td>
                     <td>
-                        <a href="{{ route('mini-cms.pages.edit', ['page' => $page->slug]) }}" title="Edit page"
+                        <a href="{{ route('mini-cms.pages.edit', ['page' => $page->id]) }}" title="Edit page"
                             class="mini-cms__button mini-cms__button--edit">Edit</a>
-                        <a href="{{ route('mini-cms.pages.delete', ['page' => $page->slug]) }}" title="Delete page"
+                        <a href="{{ route('mini-cms.pages.delete', ['page' => $page->id]) }}" title="Delete page"
                             class="mini-cms__button mini-cms__button--delete">Delete</a>
                     </td>
                 </tr>
