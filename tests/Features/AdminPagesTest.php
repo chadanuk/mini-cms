@@ -93,8 +93,8 @@ class AdminPagesTest extends TestCase
         $this->response->assertSee('type="submit"');
         $this->response->assertSee('Title');
         $this->response->assertSee('Content');
-        $this->response->assertSee('<input type="text" name="blocks[1][]');
-        $this->response->assertSee('<textarea name="blocks[2][]');
+        $this->response->assertSee('<input type="text" name="blocks[1]');
+        $this->response->assertSee('<textarea name="blocks[2]');
     }
 
     /**

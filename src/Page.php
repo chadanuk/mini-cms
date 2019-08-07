@@ -60,6 +60,10 @@ class Page extends Model
             return 'mini-cms.templates.' . $this->slug;
         }
 
+        if (View::exists('mini-cms::templates.' . $this->slug)) {
+            return 'mini-cms::templates.' . $this->slug;
+        }
+
         if (View::exists('mini-cms.templates.default')) {
             return 'mini-cms.templates.default';
         }
