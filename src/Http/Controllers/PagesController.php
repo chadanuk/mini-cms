@@ -8,8 +8,11 @@ use Illuminate\Support\Facades\View;
 
 class PagesController
 {
-    public function show(Page $page)
+    public function show(Page $page, Request $request)
     {
+        if ($request->is('/')) {
+            $page = Page::where('slug', 'home')->first();
+        }
         $viewPath = $page->getViewPath();
 
         return View::make($viewPath, ['page' => $page]);

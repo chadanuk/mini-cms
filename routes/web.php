@@ -1,3 +1,3 @@
 <?php
 
-Route::get('{page}', 'PagesController@show');
+Route::get('{page}', 'PagesController@show')->where('page', '.*');

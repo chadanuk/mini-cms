@@ -115,6 +115,7 @@ class AdminPagesTest extends TestCase
         $blocks = $page->blocks()->withPivot('label')->get();
 
         $this->assertCount(2, $blocks);
+        $this->assertCount(2, $page->pageBlocks());
         $this->assertEquals('Title', $blocks->get(0)->pivot->label);
         $this->assertEquals('Content', $blocks->get(1)->pivot->label);
 
@@ -128,9 +129,11 @@ class AdminPagesTest extends TestCase
         $this->response->assertSee('type="submit"');
         $this->response->assertSee('Title');
         $this->response->assertSee('Content');
-        $this->response->assertSee('<input type="text" name="blocks[1]');
-        $this->response->assertSee('<textarea name="blocks[2]');
-        $this->response->assertDontSee('<input type="text" name="blocks[3]');
+        $this->response->assertSeeInOrder([
+            '<input type="text" name="blocks[1]',
+            '<textarea name="blocks[2]',
+            '</form>'
+        ]);
     }
 
     /**
