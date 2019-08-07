@@ -5,11 +5,11 @@
         <div class="mini-cms__form-row">
             <label>
                 Page name
-                <input type="text" name="name">
+                <input type="text" class="mini-cms__form-input" name="name">
             </label>
         </div>
         <div class="mini-cms__form-row">
-            <input type="submit" value="Create!">
+            <input type="submit" class="button" value="Create!">
         </div>
     </fieldset>
 </form>

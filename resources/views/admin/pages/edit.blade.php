@@ -5,7 +5,7 @@
         <div class="mini-cms__form-row">
             <label>
                 Page name
-                <input type="text" name="name" value="{{ $page->name }}">
+                <input type="text" name="name" class="mini-cms__form-input" value="{{ $page->name }}">
             </label>
         </div>
 
@@ -19,7 +19,7 @@
         @endforeach
 
         <div class="mini-cms__form-row">
-            <input type="submit" value="Update page">
+            <input type="submit" class="button" value="Update page">
         </div>
     </fieldset>
 </form>
