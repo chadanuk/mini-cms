@@ -1,7 +1,5 @@
 # A micro laravel CMS
 
-Markdown and string blocks only.
-
 
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/chadanuk/mini-cms.svg?style=flat-square)](https://packagist.org/packages/chadanuk/mini-cms)
@@ -9,7 +7,10 @@ Markdown and string blocks only.
 [![Quality Score](https://img.shields.io/scrutinizer/g/chadanuk/mini-cms.svg?style=flat-square)](https://scrutinizer-ci.com/g/chadanuk/mini-cms)
 [![Total Downloads](https://img.shields.io/packagist/dt/chadanuk/mini-cms.svg?style=flat-square)](https://packagist.org/packages/chadanuk/mini-cms)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+Templates based on page slug name, multiple Markdown and string blocks per page.
+
+Define the content blocks in the template and Mini Cms will pick them up an present them as fields in the admin.
+
 
 ## Installation
 
