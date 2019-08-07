@@ -1,4 +1,5 @@
 <form action="{{ route('mini-cms.pages.update', ['id' => $page->id]) }}" method="post" class="mini-cms__form">
+    @csrf
     <h1>Edit page</h1>
     <fieldset>
         <legend>Page details</legend>
