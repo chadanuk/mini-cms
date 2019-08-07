@@ -102,9 +102,9 @@ class MiniCmsServiceProvider extends ServiceProvider
     {
         $timestamp = date('Y_m_d_His');
         return Collection::make($this->app->databasePath() . DIRECTORY_SEPARATOR . 'migrations' . DIRECTORY_SEPARATOR)
-            ->flatMap(function ($path) use ($filesystem) {
-                return $filesystem->glob($path . '*_create_permission_tables.php');
-            })->push($this->app->databasePath() . "/migrations/{$timestamp}_create_permission_tables.php")
+            ->flatMap(function ($path) use ($filesystem, $filename) {
+                return $filesystem->glob($path . $filename);
+            })->push($this->app->databasePath() . "/migrations/{$timestamp}{$filename}")
             ->first();
     }
 }
