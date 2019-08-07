@@ -62,7 +62,7 @@ To embed the minicms admin pages in a custom view you will need to remove the ad
 You will also need to add a route that catches the minicms paths, so something like...
 
 ```php
-Route::get('admin/mini-cms/{path?}', '\App\Http\Controllers\Admin\CMSController@show')->name('admin.cms')->where('path', '.*');
+Route::any('admin/mini-cms/{path?}', '\App\Http\Controllers\Admin\CMSController@show')->name('admin.cms')->where('path', '.*');
 ```
 
 
