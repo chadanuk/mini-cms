@@ -24,6 +24,7 @@ class MiniCms
     public function renderAdmin()
     {
         $request = request();
+
         if (!$request->is(config('mini-cms.admin-path') . '/*')) {
             return response('', 404);
         }
@@ -35,7 +36,7 @@ class MiniCms
         $routes = collect(app()->routes->getRoutes())->filter(
             function (Route $route) use ($request, $response) {
 
-                return $route->matches($request) && $route->uri !== config('mini-cms.admin-path') . '/mini-cms/{miniCmsPath}';
+                return is_string($route->action['uses']) && stristr($route->action['uses'], 'Chadanuk\MiniCms') !== false && $route->matches($request) && $route->uri !== config('mini-cms.admin-path') . '/mini-cms/{miniCmsPath}';
             }
         );
 
