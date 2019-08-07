@@ -58,6 +58,6 @@ class MiniCms
             $this->pageBlocks = $page->pageBlocks();
         }
 
-        echo $this->pageBlocks->where('label', $label)->where('type', $type)->first()->content;
+        echo $this->pageBlocks->where('label', $label)->where('type', $type)->first()->render();
     }
 }

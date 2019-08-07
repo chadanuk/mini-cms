@@ -46,11 +46,16 @@ class MiniCmsTest extends TestCase
         $page = \MiniCms::createPage(['name' => 'page1']);
         $page->fetchBlocks();
 
-        $blockContent = $page->fresh()->blockContents->first();
+        $page = $page->fresh();
+        $blockContent = $page->blockContents->get(0);
         $blockContent->update(['content' => 'Page title']);
+
+        $blockContent = $page->blockContents->get(1);
+        $blockContent->update(['content' => '## Second title']);
 
         $this->response = $this->withoutExceptionHandling()->get('page1');
 
         $this->assertContains('Page title', $this->response->__toString());
+        $this->assertContains('<h2>Second title</h2>', $this->response->__toString());
     }
 }
