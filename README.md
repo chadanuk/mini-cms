@@ -2,23 +2,7 @@
 
 Markdown and string blocks only.
 
-Add the following to your services providers in `config/app.php`
-```
-Chadanuk\MiniCms\MiniCmsServiceProvider::class,
-Chadanuk\MiniCms\MiniCmsRouteServiceProvider::class,
-```
 
-Add the following to your aliases in `config/app.php`
-```
-'MiniCms' => Chadanuk\MiniCms\MiniCmsFacade::class,
-```
-
-To use the blocks on a template (named after the page slug)
-```
-<h1>@minicms('string', 'Title')</h1>
-
-@minicms('markdown', 'Content')
-```
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/chadanuk/mini-cms.svg?style=flat-square)](https://packagist.org/packages/chadanuk/mini-cms)
 [![Build Status](https://img.shields.io/travis/chadanuk/mini-cms/master.svg?style=flat-square)](https://travis-ci.org/chadanuk/mini-cms)
@@ -35,11 +19,52 @@ You can install the package via composer:
 composer require chadanuk/mini-cms
 ```
 
+Add the following to your services providers in `config/app.php`
+
+```php
+'providers' => [...
+    Chadanuk\MiniCms\MiniCmsServiceProvider::class,
+    Chadanuk\MiniCms\MiniCmsAdminRouteServiceProvider::class,
+    ...
+];
+```
+And at the bottom of all the providers add the catch all cms provider...
+
+```php
+'providers' => [...
+    Chadanuk\MiniCms\MiniCmsRouteServiceProvider::class,
+];
+```
+
+Add the following to your aliases in `config/app.php`
+```php
+'aliases' => [
+    'MiniCms' => Chadanuk\MiniCms\MiniCmsFacade::class,
+];
+```
+
 ## Usage
 
-``` php
-// Usage description here
+To use the blocks on a template (named after the page slug)
+
+```php
+<h1>@minicms('string', 'Title')</h1>
+
+@minicms('markdown', 'Content')
 ```
+
+To embed the minicms admin pages in a custom view you will need to remove the admin route and use the following in your view...
+
+```php
+\MiniCms::renderAdmin()
+```
+
+You will also need to add a route that catches the minicms paths, so something like...
+
+```php
+Route::get('admin/mini-cms/{path?}', '\App\Http\Controllers\Admin\CMSController@show')->name('admin.cms')->where('path', '.*');
+```
+
 
 ### Testing
 
