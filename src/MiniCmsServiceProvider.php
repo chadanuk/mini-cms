@@ -104,7 +104,7 @@ class MiniCmsServiceProvider extends ServiceProvider
         return Collection::make($this->app->databasePath() . DIRECTORY_SEPARATOR . 'migrations' . DIRECTORY_SEPARATOR)
             ->flatMap(function ($path) use ($filesystem, $filename) {
                 return $filesystem->glob($path . $filename);
-            })->push($this->app->databasePath() . "/migrations/{$timestamp}{$filename}")
+            })->push($this->app->databasePath() . "/migrations/{$timestamp}_{$filename}")
             ->first();
     }
 }
