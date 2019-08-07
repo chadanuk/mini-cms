@@ -100,6 +100,42 @@ class AdminPagesTest extends TestCase
     /**
      * @test
      */
+    public function page_form_populated_with_only_one_of_each_block_in_template()
+    {
+        View::addLocation(__DIR__ . '/../stubs/views');
+
+        $page = \MiniCms::createPage([
+            'name' => 'Page1',
+        ]);
+
+        $page->fetchBlocks();
+
+        $this->response = $this->withoutExceptionHandling()->get(config('mini-cms.admin-path') . '/mini-cms/pages/edit/' . $page->id);
+
+        $blocks = $page->blocks()->withPivot('label')->get();
+
+        $this->assertCount(2, $blocks);
+        $this->assertEquals('Title', $blocks->get(0)->pivot->label);
+        $this->assertEquals('Content', $blocks->get(1)->pivot->label);
+
+        $this->response->assertStatus(200);
+        $this->response->assertSee('Edit page');
+        $this->response->assertSee('action="' . route('mini-cms.pages.update', ['id' => $page->id]) . '"');
+        $this->response->assertSee('method="post"');
+        $this->response->assertSee('Update page');
+        $this->response->assertSee('Page1');
+        $this->response->assertSee('name="name"');
+        $this->response->assertSee('type="submit"');
+        $this->response->assertSee('Title');
+        $this->response->assertSee('Content');
+        $this->response->assertSee('<input type="text" name="blocks[1]');
+        $this->response->assertSee('<textarea name="blocks[2]');
+        $this->response->assertDontSee('<input type="text" name="blocks[3]');
+    }
+
+    /**
+     * @test
+     */
     public function can_update_block_contents()
     {
         View::addLocation(__DIR__ . '/../stubs/views');

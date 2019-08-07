@@ -35,11 +35,14 @@ class Page extends Model
 
     public function addBlock(String $blockType, String $pageBlockLabel, $content = null): BlockTypeAbstract
     {
-        $blockClass = '\\Chadanuk\MiniCms\Blocks\\' . ucfirst($blockType) . 'Block';
-
-        $block = $blockClass::create($content, $pageBlockLabel, $this->id);
-
-        $this->blocks()->attach($block->blockId, ['label' => $pageBlockLabel]);
+        $existingBlock = $this->pageBlocks()->where('type', $blockType)->where('label', $pageBlockLabel)->first();
+        if (!$existingBlock) {
+            $blockClass = '\\Chadanuk\MiniCms\Blocks\\' . ucfirst($blockType) . 'Block';
+            $block = $blockClass::create($content, $pageBlockLabel, $this->id);
+            $this->blocks()->attach($block->blockId, ['label' => $pageBlockLabel]);
+        } else {
+            $block = BlockFactory::create(Block::find($existingBlock->blockId), BlockContent::find($existingBlock->blockContentId), $pageBlockLabel, $this->id);
+        }
 
         return $block;
     }
