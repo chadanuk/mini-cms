@@ -1,2 +1,2 @@
-<input type="text" class="mini-cms__form-input" name="blocks[{{ $block->blockContentId }}][]"
+<input type="text" name="blocks[{{ $block->blockContentId }}][]" class="mini-cms__form-input"
     value="{{ $block->content }}">
