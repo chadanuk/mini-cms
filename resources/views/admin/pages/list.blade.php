@@ -1,6 +1,6 @@
 <div class="mini-cms_list">
     <div class="mini-cms_header-wrapper">
-        <h1 class="mini-cms__header">Pages</h1>
+        <h1 class="font-regular mini-cms__header">Pages</h1>
         <a href="{{ route('mini-cms.pages.create') }}"
             class="p-2 border-rounded border-green mini-cms__button mini-cms__button--create">Create page</a>
     </div>
