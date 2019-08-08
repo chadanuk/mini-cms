@@ -1,6 +1,6 @@
 <div class="mini-cms_list px-2">
     <div class="mini-cms_header-wrapper flex justify-between">
-        <h1 class="font-regular mini-cms__header">Pages</h1>
+        <h1 class="font-semibold bg-grey-lightest text-base text-grey-darkest mini-cms__header">Pages</h1>
         <a href="{{ route('mini-cms.pages.create') }}"
             class="p-2 border border-rounded border-green mini-cms__button mini-cms__button--create">Create page</a>
     </div>
