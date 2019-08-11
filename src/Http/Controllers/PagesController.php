@@ -66,11 +66,11 @@ class PagesController
 
     public function store(Request $request)
     {
-        \MiniCms::createPage([
+        $page = \MiniCms::createPage([
             'name' => $request->get('name'),
 
         ]);
 
-        return response('', 201);
+        return redirect()->route('mini-cms.pages.edit', ['id' => $page->id])->with('success', true);
     }
 }
