@@ -65,11 +65,11 @@ class MiniCmsTest extends TestCase
     public function can_render_content_for_block_by_defining_page_slug()
     {
         $page = \MiniCms::createPage(['name' => 'Terms']);
-        $page->addBlock('string', 'Title', 'Content');
 
-        $this->response = $this->withoutExceptionHandling()->get('terms');
+        $otherPage = \MiniCms::createPage(['name' => 'Other']);
+        $otherPage->addBlock('string', 'Other title', 'A new piece of content');
 
-        $this->assertContains('Content', $this->response->__toString());
+        $this->assertEquals('A new piece of content', \MiniCms::getBlockOutput('string', 'Other title', 'other'));
     }
 
     /**
@@ -79,6 +79,6 @@ class MiniCmsTest extends TestCase
     {
         $page = \MiniCms::createPage(['name' => 'Terms']);
 
-        $this->assertEquals('', \MiniCms::renderBlock('string', 'Title', $page->id));
+        $this->assertEquals('', \MiniCms::getBlockOutput('string', 'Title', $page->slug));
     }
 }

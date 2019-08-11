@@ -49,10 +49,10 @@ class MiniCms
         return $route->bind($request)->run();
     }
 
-    public function renderBlock(String $type, String $label, int $pageId = null)
+    public function getBlockOutput(String $type, String $label, string $pageSlug = null)
     {
         $request = request();
-        $page = $pageId ? Page::find($pageId) : $request->route('page');
+        $page = $pageSlug ? Page::findBySlug($pageSlug) : $request->route('page');
 
         if (!$this->pageBlocks) {
             $this->pageBlocks = $page->pageBlocks();
@@ -62,6 +62,11 @@ class MiniCms
             return '';
         }
 
-        echo $this->pageBlocks->where('label', $label)->where('type', $type)->first()->render();
+        return $this->pageBlocks->where('label', $label)->where('type', $type)->first()->render();
+    }
+
+    public function renderBlock(String $type, String $label, string $pageSlug = null)
+    {
+        echo static::getBlockOutput($type, $label, $pageSlug);
     }
 }

@@ -33,6 +33,11 @@ class Page extends Model
         return 'slug';
     }
 
+    public static function findBySlug(String $slug)
+    {
+        return self::where('slug', $slug)->first();
+    }
+
     public function addBlock(String $blockType, String $pageBlockLabel, $content = null): BlockTypeAbstract
     {
         $existingBlock = $this->pageBlocks()->where('type', $blockType)->where('label', $pageBlockLabel)->first();
