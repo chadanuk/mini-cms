@@ -33,6 +33,17 @@ class Page extends Model
         return 'slug';
     }
 
+    /**
+     * Retrieve the model for a bound value.
+     *
+     * @param  mixed  $value
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function resolveRouteBinding($value = 'home')
+    {
+        return $this->where('slug', $value)->first() ?? abort(404);
+    }
+
     public static function findBySlug(String $slug)
     {
         return self::where('slug', $slug)->first();

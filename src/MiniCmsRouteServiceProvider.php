@@ -23,8 +23,6 @@ class MiniCmsRouteServiceProvider extends RouteServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
     }
 

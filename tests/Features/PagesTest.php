@@ -2,10 +2,7 @@
 
 namespace Chadanuk\MiniCms\Tests\Features;
 
-use Chadanuk\MiniCms\Page;
 use Chadanuk\MiniCms\Tests\TestCase;
-use Illuminate\Support\Facades\View;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class PagesTest extends TestCase
 {

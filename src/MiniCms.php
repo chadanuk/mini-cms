@@ -53,6 +53,9 @@ class MiniCms
     {
         $request = request();
         $page = $pageSlug ? Page::findBySlug($pageSlug) : $request->route('page');
+        if (!$page && $request->is('/')) {
+            $page = Page::findBySlug(('home'));
+        }
 
         if (!$this->pageBlocks) {
             $this->pageBlocks = $page->pageBlocks();
