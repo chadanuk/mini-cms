@@ -58,4 +58,27 @@ class MiniCmsTest extends TestCase
         $this->assertContains('Page title', $this->response->__toString());
         $this->assertContains('<h2>Second title</h2>', $this->response->__toString());
     }
+
+    /**
+     * @test
+     */
+    public function can_render_content_for_block_by_defining_page_slug()
+    {
+        $page = \MiniCms::createPage(['name' => 'Terms']);
+        $page->addBlock('string', 'Title', 'Content');
+
+        $this->response = $this->withoutExceptionHandling()->get('terms');
+
+        $this->assertContains('Content', $this->response->__toString());
+    }
+
+    /**
+     * @test
+     */
+    public function non_existinent_block_renders_empty_string()
+    {
+        $page = \MiniCms::createPage(['name' => 'Terms']);
+
+        $this->assertEquals('', \MiniCms::renderBlock('string', 'Title', $page->id));
+    }
 }

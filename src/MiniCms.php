@@ -49,13 +49,17 @@ class MiniCms
         return $route->bind($request)->run();
     }
 
-    public function renderBlock(String $type, String $label)
+    public function renderBlock(String $type, String $label, int $pageId = null)
     {
         $request = request();
-        $page = $request->route('page');
+        $page = $pageId ? Page::find($pageId) : $request->route('page');
 
         if (!$this->pageBlocks) {
             $this->pageBlocks = $page->pageBlocks();
+        }
+
+        if ($this->pageBlocks->count() === 0) {
+            return '';
         }
 
         echo $this->pageBlocks->where('label', $label)->where('type', $type)->first()->render();
