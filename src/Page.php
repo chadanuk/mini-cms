@@ -51,21 +51,22 @@ class Page extends Model
 
     public function addBlock(String $blockType, String $pageBlockLabel, $content = null): BlockTypeAbstract
     {
-        $existingBlock = $this->pageBlocks()->where('type', $blockType)->where('label', $pageBlockLabel)->first();
-        if (!$existingBlock) {
+        $existingBlockContent = $this->blockContents()->whereHas('block', function ($query) use ($blockType, $pageBlockLabel) {
+            return $query->where('type', $blockType)->where('label', $pageBlockLabel);
+        })->first();
+
+        if (!$existingBlockContent) {
+
             $blockClass = '\\Chadanuk\MiniCms\Blocks\\' . ucfirst($blockType) . 'Block';
+
             $block = $blockClass::create($content, $pageBlockLabel, $this->id);
-            $this->blocks()->attach($block->blockId, ['label' => $pageBlockLabel]);
+            $this->blockContents()->save($block->blockContent);
         } else {
-            $block = BlockFactory::create(Block::find($existingBlock->blockId), BlockContent::find($existingBlock->blockContentId), $pageBlockLabel, $this->id);
+
+            $block = BlockFactory::create($existingBlockContent->block()->first(), $existingBlockContent, $pageBlockLabel, $this->id);
         }
 
         return $block;
-    }
-
-    public function blocks()
-    {
-        return $this->belongsToMany(Block::class, 'pages_blocks');
     }
 
     public function blockContents()
@@ -97,31 +98,37 @@ class Page extends Model
 
         $templateContents = file_get_contents($fullPath);
 
-        preg_match_all('/\@minicms\(\'(.*)\', \'(.*)\'\)/', $templateContents, $blocks);
+        preg_match_all('/\@minicms\((.*)\)/', $templateContents, $blocks);
+        foreach ($blocks[1] as $key => $value) {
+            $blockArgs = explode(', ', $value);
+            list($type, $label) = $blockArgs;
+            $pageSlug = null;
 
-        foreach ($blocks[1] as $key => $type) {
-            $this->addBlock($type, $blocks[2][$key], null);
+            if (isset($blockArgs[2])) {
+                $pageSlug = $blockArgs[2];
+            }
+
+            $this->addBlock(trim($type, '\''), trim($label, '\''), trim($pageSlug, '\''));
         }
 
-        return $this->blocks()->get();
+        return $this->blockContents()->get();
     }
 
     public function pageBlocks()
     {
         $blockData = collect([]);
-        $this->blocks()->withPivot('label')->get()->each(function ($block) use ($blockData) {
-            $blockContents = BlockContent::where([
-                'page_id' => $this->id,
-                'block_id' => $block->id,
-            ])->get();
-
-            $blockContents->each(function ($blockContent) use ($blockData, $block) {
-                $blockData->push(['blockContent' => $blockContent, 'block' => $block]);
-            });
+        $this->blockContents()->get()->each(function ($blockContent) use ($blockData) {
+            $blockData->push(['blockContent' => $blockContent, 'block' => $blockContent->block]);
         });
 
         return $blockData->map(function ($blockDataItem) {
-            return BlockFactory::create($blockDataItem['block'], $blockDataItem['blockContent'], $blockDataItem['block']->pivot->label, $this->id);
+
+            return BlockFactory::create(
+                $blockDataItem['block'],
+                $blockDataItem['blockContent'],
+                $blockDataItem['block']->label,
+                $this->id
+            );
         });
     }
 

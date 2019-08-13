@@ -11,6 +11,6 @@ class BlockFactory
     {
         $blockClass = '\\Chadanuk\MiniCms\Blocks\\' . ucfirst($block->type) . 'Block';
 
-        return new $blockClass($block->type, $block->id, $blockContent->id, $label, $page_id, $blockContent->content);
+        return new $blockClass($block, $blockContent, $page_id);
     }
 }

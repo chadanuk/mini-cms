@@ -15,6 +15,6 @@ class StringBlock extends BlockTypeAbstract implements BlockTypeContract
 
     public function render()
     {
-        return $this->content;
+        return $this->blockContent->content;
     }
 }

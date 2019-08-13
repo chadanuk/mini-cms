@@ -65,7 +65,7 @@ class MiniCms
             return '';
         }
 
-        return $this->pageBlocks->where('label', $label)->where('type', $type)->first()->render();
+        return $this->pageBlocks->where('block.label', $label)->where('block.type', $type)->first()->render();
     }
 
     public function renderBlock(String $type, String $label, string $pageSlug = null)

@@ -15,6 +15,6 @@ class MarkdownBlock extends BlockTypeAbstract implements BlockTypeContract
 
     public function render()
     {
-        return Markdown::parse($this->content);
+        return Markdown::parse($this->blockContent->content);
     }
 }

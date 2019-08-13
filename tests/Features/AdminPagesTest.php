@@ -37,7 +37,7 @@ class AdminPagesTest extends TestCase
             'name' => 'Page',
         ]);
 
-        $this->response->assertStatus(201);
+        $this->response->assertStatus(302);
         $this->assertEquals(1, Page::count());
         $this->assertEquals('Page', Page::first()->name);
     }
@@ -77,11 +77,11 @@ class AdminPagesTest extends TestCase
 
         $this->response = $this->withoutExceptionHandling()->get(config('mini-cms.admin-path') . '/mini-cms/pages/edit/' . $page->id);
 
-        $blocks = $page->blocks()->withPivot('label')->get();
+        $blocks = $page->blockContents()->get();
 
-        $this->assertCount(2, $blocks);
-        $this->assertEquals('Title', $blocks->get(0)->pivot->label);
-        $this->assertEquals('Content', $blocks->get(1)->pivot->label);
+        $this->assertCount(3, $blocks);
+        $this->assertEquals('Title', $blocks->get(0)->block->label);
+        $this->assertEquals('Content', $blocks->get(1)->block->label);
 
         $this->response->assertStatus(200);
         $this->response->assertSee('Edit page');
@@ -112,12 +112,12 @@ class AdminPagesTest extends TestCase
 
         $this->response = $this->withoutExceptionHandling()->get(config('mini-cms.admin-path') . '/mini-cms/pages/edit/' . $page->id);
 
-        $blocks = $page->blocks()->withPivot('label')->get();
+        $blocks = $page->blockContents()->get();
 
-        $this->assertCount(2, $blocks);
-        $this->assertCount(2, $page->pageBlocks());
-        $this->assertEquals('Title', $blocks->get(0)->pivot->label);
-        $this->assertEquals('Content', $blocks->get(1)->pivot->label);
+        $this->assertCount(3, $blocks);
+        $this->assertCount(3, $page->pageBlocks());
+        $this->assertEquals('Title', $blocks->get(0)->block->label);
+        $this->assertEquals('Content', $blocks->get(1)->block->label);
 
         $this->response->assertStatus(200);
         $this->response->assertSee('Edit page');
@@ -208,7 +208,7 @@ class AdminPagesTest extends TestCase
 
         $blockContents = $page->addBlock('string', 'The page name');
 
-        $this->assertCount(1, $page->blocks()->get());
+        $this->assertCount(1, $page->blockContents()->get());
     }
 
     /**

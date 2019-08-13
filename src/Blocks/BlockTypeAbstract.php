@@ -2,27 +2,23 @@
 
 namespace Chadanuk\MiniCms\Blocks;
 
+use Chadanuk\MiniCms\Blocks\Block;
 use Illuminate\Support\Facades\View;
+use Chadanuk\MiniCms\Blocks\BlockContent;
 
 abstract class BlockTypeAbstract
 {
     protected static $blockType = 'markdown';
 
-    public $blockId;
-    public $blockContentId;
+    public $block;
+    public $blockContent;
     public $pageId;
-    public $type;
-    public $content;
-    public $label;
 
-    public function __construct(string $type, int $blockId, int $blockContentId, String $label = null, int $pageId = null, $content = null)
+    public function __construct(Block $block, BlockContent $blockContent, int $pageId = null)
     {
-        $this->blockId = $blockId;
-        $this->type = $type;
-        $this->blockContentId = $blockContentId;
+        $this->block = $block;
+        $this->blockContent = $blockContent;
         $this->pageId = $pageId;
-        $this->content = $content;
-        $this->label = $label;
 
         return $this;
     }

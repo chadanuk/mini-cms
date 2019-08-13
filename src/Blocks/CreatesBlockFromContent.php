@@ -12,14 +12,14 @@ trait CreatesBlockFromContent
     {
         $blockClass = \get_class();
 
-        $block = Block::firstOrCreate(['type' => self::$blockType]);
+        $block = Block::firstOrCreate(['type' => self::$blockType, 'label' => $label]);
 
-        $blockContent = BlockContent::create([
+        $blockContent = $block->blockContents()->create([
             'block_id' => $block->id,
             'page_id' => $page_id,
             'content' => $content,
         ]);
 
-        return new $blockClass($block->type, $blockContent->block_id, $blockContent->id, $label, $page_id, $content);
+        return new $blockClass($block, $blockContent, $page_id);
     }
 }

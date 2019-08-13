@@ -13,7 +13,7 @@
         @foreach ($page->pageBlocks() as $pageBlock)
         <div class="mini-cms__form-row">
             <label>
-                {{ $pageBlock->label }}
+                {{ $pageBlock->block->label }}
                 {!! $pageBlock->renderInput() !!}
             </label>
         </div>
