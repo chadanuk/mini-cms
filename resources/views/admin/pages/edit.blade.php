@@ -9,7 +9,10 @@
                 <input type="text" name="name" class="mini-cms__form-input" value="{{ $page->name }}">
             </label>
         </div>
-
+    </fieldset>
+    <fieldset>
+        <legend>Page <contents></contents>
+        </legend>
         @foreach ($page->pageBlocks() as $pageBlock)
         <div class="mini-cms__form-row">
             <label>
@@ -18,9 +21,9 @@
             </label>
         </div>
         @endforeach
-
-        <div class="mini-cms__form-row">
-            <input type="submit" class="button" value="Update page">
-        </div>
-    </fieldset>
+        <fieldset>
+            <div class="mini-cms__form-row">
+                <input type="submit" class="button" value="Update page">
+            </div>
+        </fieldset>
 </form>
