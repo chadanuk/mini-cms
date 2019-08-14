@@ -1,4 +1,4 @@
-# A micro laravel CMS
+# A micro CMS for laravel
 
 
 
@@ -46,10 +46,12 @@ Add the following to your aliases in `config/app.php`
 
 ## Usage
 
-To use the blocks on a template (named after the page slug)
+To use the blocks on a template (named after the page slug) in `resources/views/vendor/mini-cms/templates/{page-slug}.blde.php`
 
 ```php
 <h1>@minicms('string', 'Title')</h1>
+
+<h2>@minicms('string', 'Subtitle')</h2>
 
 @minicms('markdown', 'Content')
 ```
