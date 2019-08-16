@@ -11,8 +11,7 @@
         </div>
     </fieldset>
     <fieldset>
-        <legend>Page <contents></contents>
-        </legend>
+        <legend>Page Contents</legend>
         @foreach ($page->pageBlocks() as $pageBlock)
         <div class="mini-cms__form-row">
             <label>
