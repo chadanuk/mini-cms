@@ -81,4 +81,16 @@ class MiniCmsTest extends TestCase
 
         $this->assertEquals('', \MiniCms::getBlockOutput('string', 'Title', $page->slug));
     }
+
+    /**
+     * @test
+     */
+    public function non_existinent_block_type_renders_empty_string()
+    {
+        View::addLocation(__DIR__ . '/../stubs/views');
+        $page = \MiniCms::createPage(['name' => 'Page1']);
+        $page->fetchBlocks();
+
+        $this->assertEquals('', \MiniCms::getBlockOutput('non-block', 'Title', $page->slug));
+    }
 }
