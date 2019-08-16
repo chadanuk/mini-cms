@@ -43,4 +43,16 @@ class TextBlockTest extends TestCase
 
         $this->assertContains("Some content goes here. With some / or many paragraphs<br />\nand is displayed sensibly.", $output);
     }
+
+    /**
+     * @test
+     */
+    public function can_render_admin_input_for_text_block()
+    {
+        $page = \MiniCms::createPage(['name' => 'Other']);
+        $page->addBlock('text', 'Other title', 'A new piece of content');
+        $block = $page->pageBlocks()->first();
+
+        $this->assertContains('<textarea name="blocks[1]', $block->renderInput()->render());
+    }
 }
