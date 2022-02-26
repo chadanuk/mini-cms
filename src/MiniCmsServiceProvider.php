@@ -2,6 +2,7 @@
 
 namespace Chadanuk\MiniCms;
 
+use Illuminate\Mail\Markdown;
 use Illuminate\Support\Collection;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Event;
@@ -88,6 +89,11 @@ class MiniCmsServiceProvider extends ServiceProvider
                 list($type, $label) = explode(',', $arguments . ',');
 
                 return "<?php \MiniCms::renderBlock($type, $label) ?>";
+            });
+
+            $bladeCompiler->directive('markdown', function ($arguments) {
+                list($text) = explode(',', $arguments . ',');
+                return Markdown::parse(($text));
             });
         });
     }

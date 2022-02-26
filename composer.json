@@ -18,7 +18,6 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
-        "andreasindal/laravel-markdown": "^3.0",
         "illuminate/support": "7.8.*"
     },
     "require-dev": {
