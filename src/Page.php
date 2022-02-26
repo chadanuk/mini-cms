@@ -39,7 +39,7 @@ class Page extends Model
      * @param  mixed  $value
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    public function resolveRouteBinding($value = 'home')
+    public function resolveRouteBinding($value = 'home', $field = null)
     {
         return $this->where('slug', $value)->first() ?? abort(404);
     }

@@ -18,12 +18,11 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
-        "andreasindal/laravel-markdown": "^3.0",
-        "illuminate/support": "5.8.*"
+        "illuminate/support": "9.0.*"
     },
     "require-dev": {
-        "orchestra/testbench": "3.8.*",
-        "phpunit/phpunit": "^7.0"
+        "orchestra/testbench": "7.0.*",
+        "phpunit/phpunit": "^9.0"
     },
     "autoload": {
         "psr-4": {
